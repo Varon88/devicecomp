@@ -18,6 +18,6 @@ public class PortableSpeakers {
     private String manufacturer;
     private String model;
     private String batteryCapacity;
-    private String price;
-    private String release;
+    private String useCondition;
+    private String releaseDate;
 }

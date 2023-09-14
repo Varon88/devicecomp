@@ -5,7 +5,6 @@ import com.example.devicecomp.Service.LaptopServiceInterface;
 import com.example.devicecomp.dao.LaptopsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class LaptopService implements LaptopServiceInterface {
     @Override
     public ResponseEntity<String> editLaptop(int id, Laptops laptops) {
         if(laptopsDao.existsById(id)){
-            laptopsDao.save(new Laptops(id,laptops.getName(),laptops.getStorage(),laptops.getManufacturer(),laptops.getModel(),laptops.getSpecs(),laptops.getPrice(),laptops.getCondition(),laptops.getRelease()));
+            laptopsDao.save(new Laptops(id,laptops.getName(),laptops.getStorage(),laptops.getManufacturer(),laptops.getModel(),laptops.getSpecs(),laptops.getPrice(),laptops.getUseCondition(),laptops.getReleaseDate()));
             return new ResponseEntity<>("Update sucessfull", HttpStatus.OK);
         }
         return new ResponseEntity<>("No such item of id found", HttpStatus.BAD_REQUEST);
@@ -55,9 +54,9 @@ public class LaptopService implements LaptopServiceInterface {
     }
 
     @Override
-    public ResponseEntity<List<Laptops>> recommendLaptops(String condition, String price, String specs) {
+    public ResponseEntity<List<Laptops>> recommendLaptops(String useCondition, String price, String specs) {
         try{
-            return new ResponseEntity<>(laptopsDao.findAllRec(condition,price,specs), HttpStatus.OK);
+            return new ResponseEntity<>(laptopsDao.findAllRec(useCondition,price,specs), HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
         }

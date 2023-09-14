@@ -19,6 +19,6 @@ public class Phones {
     private String model;
     private String batteryCapacity;
     private String price;
-    private String condition;
-    private String release;
+    private String useCondition;
+    private String releaseDate;
 }

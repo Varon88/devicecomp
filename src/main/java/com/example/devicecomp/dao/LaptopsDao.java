@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface LaptopsDao extends JpaRepository<Laptops,Integer> {
 
-    @Query(value = "SELECT * FROM Laptops l WHERE l.condition = :condition AND l.price <= :price AND l.specs = :specs ",nativeQuery = true)
-    List<Laptops> findAllRec(String condition, String price, String specs);
+    @Query(value = "SELECT * FROM Laptops l WHERE l.useCondition = :useCondition AND l.price <= :price AND l.specs = :specs ",nativeQuery = true)
+    List<Laptops> findAllRec(String useCondition, String price, String specs);
 }
