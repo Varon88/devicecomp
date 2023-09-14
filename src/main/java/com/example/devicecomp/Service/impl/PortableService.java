@@ -1,4 +1,10 @@
 package com.example.devicecomp.Service.impl;
 
-public class PortableService {
+import com.example.devicecomp.Service.PortableSpeakerInterface;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PortableService implements PortableSpeakerInterface {
+
+
 }
