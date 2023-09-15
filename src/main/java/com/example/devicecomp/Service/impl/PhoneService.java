@@ -43,7 +43,7 @@ public class PhoneService implements PhoneServiceInterface {
         try {
             if (phonesDao.existsById(id)) {
                 phonesDao.deleteById(id);
-                return new ResponseEntity<>("Delettion successful", HttpStatus.OK);
+                return new ResponseEntity<>("Deletion successful", HttpStatus.OK);
             }
         }catch (Exception e){
             e.printStackTrace();
