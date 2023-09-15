@@ -5,6 +5,7 @@ import com.example.devicecomp.Model.PortableSpeakers;
 import com.example.devicecomp.Service.PortableSpeakerInterface;
 import com.example.devicecomp.dao.PortableSpeakerDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
+    @Cacheable("getAll")
     public ResponseEntity<List<PortableSpeakers>> getAllSpeakers() {
         try{
             return new ResponseEntity<>(portableSpeakerDao.findAll(), HttpStatus.OK);

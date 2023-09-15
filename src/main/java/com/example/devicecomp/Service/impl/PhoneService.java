@@ -4,6 +4,7 @@ import com.example.devicecomp.Model.Phones;
 import com.example.devicecomp.Service.PhoneServiceInterface;
 import com.example.devicecomp.dao.PhonesDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class PhoneService implements PhoneServiceInterface {
     }
 
     @Override
+    @Cacheable("getAll")
     public ResponseEntity<List<Phones>> getAllPhones() {
         try{
             return new ResponseEntity<>(phonesDao.findAll(), HttpStatus.OK);
