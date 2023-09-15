@@ -31,6 +31,7 @@ public class LaptopService implements LaptopServiceInterface {
     @Override
     public ResponseEntity<String> editLaptop(int id, Laptops laptops) {
         if(laptopsDao.existsById(id)){
+            laptopsDao.deleteById(id);
             laptopsDao.save(new Laptops(id,laptops.getName(),laptops.getStorage(),laptops.getManufacturer(),laptops.getModel(),laptops.getSpecs(),laptops.getPrice(),laptops.getUseCondition(),laptops.getReleaseDate()));
             return new ResponseEntity<>("Update sucessfull", HttpStatus.OK);
         }

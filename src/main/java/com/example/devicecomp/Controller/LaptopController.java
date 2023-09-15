@@ -62,15 +62,14 @@ public class LaptopController {
     }
 
     @GetMapping("getRec")
-    @Operation(tags = {"laptop based functionality"},
-                operationId = "deleteLaptops",
-                summary = "deletes laptop information",
-                description = "takes an id as input and deletes the object laptop if present in the database",
+    @Operation(tags = {"laptop based functionality "},
+                operationId = "recommend laptops",
+                summary = "provides a list of laptops based on the user entered requirement",
+                description = "takes the required condition, price range and specs as input and returns a list of laptops that are suited to the the inputs",
                 parameters = {@Parameter(name = "condition", description = "preferred laptop condition", example = "used/brand new"),
                              @Parameter(name = "price", description = "preferred price range(this is a price cap)", example = "1500"),
                              @Parameter(name = "specs", description = "preferred specs", example = "low tier/mid tier/high tier")})
     public ResponseEntity<List<Laptops>> recommendLaptops(@RequestParam String condition, @RequestParam String price, @RequestParam String specs){
         return laptopService.recommendLaptops(condition,price,specs);
     }
-
 }
