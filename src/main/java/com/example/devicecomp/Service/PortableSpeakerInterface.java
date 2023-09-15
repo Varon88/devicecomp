@@ -1,6 +1,5 @@
 package com.example.devicecomp.Service;
 
-import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.PortableSpeakers;
 import org.springframework.http.ResponseEntity;
 
@@ -15,5 +14,5 @@ public interface PortableSpeakerInterface {
 
     ResponseEntity<List<PortableSpeakers>> getAllSpeakers();
 
-    ResponseEntity<List<Laptops>> recommendSpeakers(String condition, String batteryCapacity);
+    ResponseEntity<List<PortableSpeakers>> recommendSpeakers(String condition, String batteryCapacity);
 }

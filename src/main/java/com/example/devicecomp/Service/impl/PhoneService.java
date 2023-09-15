@@ -42,10 +42,9 @@ public class PhoneService implements PhoneServiceInterface {
     @Override
     public ResponseEntity<String> deletePhones(int id) {
         try {
-            if (phonesDao.existsById(id)) {
-                phonesDao.deleteById(id);
-                return new ResponseEntity<>("Deletion successful", HttpStatus.OK);
-            }
+            phonesDao.deleteById(id);
+            return new ResponseEntity<>("Deletion successful", HttpStatus.OK);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,3 +72,4 @@ public class PhoneService implements PhoneServiceInterface {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 }
+

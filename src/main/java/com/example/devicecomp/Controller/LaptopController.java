@@ -19,7 +19,7 @@ public class LaptopController {
     @Autowired
     private LaptopService laptopService;
 
-    @PostMapping("all")
+    @PostMapping("add")
     @Operation(tags = {"laptop based functionality"},
                 operationId = "addLaptops",
                 summary = "adds a laptop",
@@ -62,7 +62,7 @@ public class LaptopController {
     }
 
     @GetMapping("getRec")
-    @Operation(tags = {"laptop based functionality "},
+    @Operation(tags = {"laptop based functionality"},
                 operationId = "recommend laptops",
                 summary = "provides a list of laptops based on the user entered requirement",
                 description = "takes the required condition, price range and specs as input and returns a list of laptops that are suited to the the inputs",

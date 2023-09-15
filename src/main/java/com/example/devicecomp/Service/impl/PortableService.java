@@ -1,6 +1,5 @@
 package com.example.devicecomp.Service.impl;
 
-import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.PortableSpeakers;
 import com.example.devicecomp.Service.PortableSpeakerInterface;
 import com.example.devicecomp.dao.PortableSpeakerDao;
@@ -62,7 +61,7 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
-    public ResponseEntity<List<Laptops>> recommendSpeakers(String condition, String batteryCapacity) {
+    public ResponseEntity<List<PortableSpeakers>> recommendSpeakers(String condition, String batteryCapacity) {
         try {
             return new ResponseEntity<>(portableSpeakerDao.findAllRec(condition,batteryCapacity));
         }catch (Exception e){
