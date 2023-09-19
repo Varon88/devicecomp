@@ -5,6 +5,7 @@ import com.example.devicecomp.Service.MasterServiceInterface;
 import com.example.devicecomp.dao.LaptopsDao;
 import com.example.devicecomp.dao.PhonesDao;
 import com.example.devicecomp.dao.PortableSpeakerDao;
+import com.example.devicecomp.dto.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -29,10 +30,17 @@ public class MasterService implements MasterServiceInterface {
 
     @Override
     @Cacheable(cacheNames = "getAll")
-    public ResponseEntity<List<Objects>> getAllProducts() {
-        allItems.add(laptopsDao.findAll());
-        allItems.add(phonesDao.findAll());
-        allItems.add(portableSpeakerDao.findAll());
-        return new ResponseEntity<>(allItems, HttpStatus.OK);
+    public ResponseEntity<Products> getAllProducts() {
+        Products products = new Products();
+        products.setLaptopsList(laptopsDao.findAll());
+        products.setPhonesList(phonesDao.findAll());
+        products.setPortableSpeakersList(portableSpeakerDao.findAll());
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }
+
+
+//  allItems.add(laptopsDao.findAll());
+//          allItems.add(phonesDao.findAll());
+//          allItems.add(portableSpeakerDao.findAll());
+//          return new ResponseEntity<>(allItems, HttpStatus.OK);

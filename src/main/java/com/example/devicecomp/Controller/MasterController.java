@@ -4,6 +4,7 @@ import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.Phones;
 import com.example.devicecomp.Model.PortableSpeakers;
 import com.example.devicecomp.Service.impl.MasterService;
+import com.example.devicecomp.dto.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class MasterController {
    private MasterService masterService;
 
     @GetMapping("getAll")
-    public ResponseEntity<List<Objects>> gellAllProdcuts(){
+    public ResponseEntity<Products> gellAllProdcuts(){
         return masterService.getAllProducts();
     }
 }
