@@ -51,19 +51,19 @@ public class LaptopService implements LaptopServiceInterface {
     }
 
     @Override
-    @Cacheable(cacheNames = "getAll")
+    @Cacheable(cacheNames = "getAllLaptop")
     public ResponseEntity<List<Laptops>> getAllLaptops() {
         return new ResponseEntity<>(laptopsDao.findAll(), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Laptops>> recommendLaptops(String useCondition, String price, String specs) {
+    public ResponseEntity<List<Laptops>> recommendLaptops(String useCondition, int price, String specs) {
         try{
             return new ResponseEntity<>(laptopsDao.findAllRec(useCondition,price,specs), HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
         }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ArrayList<>() , HttpStatus.NOT_FOUND);
     }
 }
 

@@ -52,7 +52,7 @@ public class PhoneService implements PhoneServiceInterface {
     }
 
     @Override
-    @Cacheable("getAll")
+    @Cacheable(cacheNames = "getAllPhone")
     public ResponseEntity<List<Phones>> getAllPhones() {
         try{
             return new ResponseEntity<>(phonesDao.findAll(), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class PhoneService implements PhoneServiceInterface {
     }
 
     @Override
-    public ResponseEntity<List<Phones>> recommendPhones(String condition, String price, String storage) {
+    public ResponseEntity<List<Phones>> recommendPhones(String condition, int price, String storage) {
         try{
             return new ResponseEntity<>(phonesDao.findAllRec(condition,price,storage), HttpStatus.OK);
         }catch (Exception e){

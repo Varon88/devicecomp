@@ -4,9 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Laptops {
 
@@ -18,7 +20,7 @@ public class Laptops {
     private String manufacturer;
     private String model;
     private String specs;
-    private String price;
+    private int price;
     private String UseCondition;
     private String releaseDate;
 }

@@ -14,5 +14,5 @@ public interface LaptopServiceInterface {
 
     ResponseEntity<List<Laptops>> getAllLaptops();
 
-    ResponseEntity<List<Laptops>> recommendLaptops(String condition, String price, String specs);
+    ResponseEntity<List<Laptops>> recommendLaptops(String condition, int price, String specs);
 }

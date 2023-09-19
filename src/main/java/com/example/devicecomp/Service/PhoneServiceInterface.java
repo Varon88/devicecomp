@@ -14,5 +14,5 @@ public interface PhoneServiceInterface {
 
     ResponseEntity<List<Phones>> getAllPhones();
 
-    ResponseEntity<List<Phones>> recommendPhones(String condition, String price, String storage);
+    ResponseEntity<List<Phones>> recommendPhones(String condition, int price, String storage);
 }

@@ -69,7 +69,7 @@ public class PhoneController {
             parameters = {@Parameter(name = "condition", description = "preferred phone condition", example = "used/brand new"),
                     @Parameter(name = "price", description = "preferred price range(this is a price cap)", example = "1500"),
                     @Parameter(name = "storage", description = "preferred storage", example = "low tier/mid tier/high tier")})
-    public ResponseEntity<List<Phones>> recommendPhones(@RequestParam String condition, @RequestParam String price, @RequestParam String storage){
+    public ResponseEntity<List<Phones>> recommendPhones(@RequestParam String condition, @RequestParam int price, @RequestParam String storage){
         return phoneService.recommendPhones(condition,price,storage);
     }
 }

@@ -50,7 +50,7 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
-    @Cacheable("getAll")
+    @Cacheable(cacheNames = "getAllSpeaker")
     public ResponseEntity<List<PortableSpeakers>> getAllSpeakers() {
         try{
             return new ResponseEntity<>(portableSpeakerDao.findAll(), HttpStatus.OK);
