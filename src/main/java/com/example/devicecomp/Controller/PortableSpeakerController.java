@@ -67,7 +67,7 @@ public class PortableSpeakerController {
             operationId = "recommend Speakers",
             summary = "provides a list of Speakers based on the user entered requirement",
             description = "takes the required condition and battery capacity as input and returns a list of Speakers that are suited to the the inputs",
-            parameters = {@Parameter(name = "condition", description = "preferred Speaker condition", example = "used/brand new"),
+            parameters = {@Parameter(name = "condition", description = "preferred Speaker condition", example = "Used/New"),
                     @Parameter(name = "batteryCapacity", description = "refers to the battery capacity of the speaker in mAh", example = "1500")})
     public ResponseEntity<List<PortableSpeakers>> recommendSpeakers(@RequestParam String condition, @RequestParam String batteryCapacity){
         return portableService.recommendSpeakers(condition,batteryCapacity);

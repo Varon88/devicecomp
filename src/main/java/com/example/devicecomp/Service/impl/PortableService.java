@@ -63,7 +63,7 @@ public class PortableService implements PortableSpeakerInterface {
     @Override
     public ResponseEntity<List<PortableSpeakers>> recommendSpeakers(String condition, String batteryCapacity) {
         try {
-            return new ResponseEntity<>(portableSpeakerDao.findAllRec(condition,batteryCapacity));
+            return new ResponseEntity<>(portableSpeakerDao.findAllRec(condition,batteryCapacity), HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
         }

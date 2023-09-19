@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PortableSpeakerDao extends JpaRepository<PortableSpeakers,Integer> {
 
-    @Query(value = "SELECT * FROM PortableSpeakerDao p WHERE p.batteryCapacity = :batteryCapacity AND l.useCondition = :condition", nativeQuery = true)
-    HttpStatusCode findAllRec(String condition, String batteryCapacity);
+    @Query(value = "SELECT * FROM portable_speakers p WHERE p.battery_capacity <= :batteryCapacity AND p.use_condition = :condition", nativeQuery = true)
+    List<PortableSpeakers> findAllRec(String condition, String batteryCapacity);
 }
