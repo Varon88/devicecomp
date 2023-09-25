@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("laptop")
 public class LaptopController {
@@ -36,7 +37,7 @@ public class LaptopController {
             description = "takes a body as input and edits the object laptop present in the database",
             parameters = @Parameter(name = "id", description = "id referencing a laptop", example = "2"),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "edited laptop contents to be added", content = @Content(schema = @Schema(implementation = Laptops.class))))
-    public ResponseEntity<String> editLaptops(@PathVariable int id, @RequestBody Laptops laptops){
+    public ResponseEntity<Laptops> editLaptops(@PathVariable int id, @RequestBody Laptops laptops){
         return laptopService.editLaptop(id,laptops);
     }
 
@@ -71,5 +72,15 @@ public class LaptopController {
                              @Parameter(name = "specs", description = "preferred specs", example = "Low Tier/Mid Tier/High Tier")})
     public ResponseEntity<List<Laptops>> recommendLaptops(@RequestParam String condition, @RequestParam int price, @RequestParam String specs){
         return laptopService.recommendLaptops(condition,price,specs);
+    }
+
+    @GetMapping("getById/{id}")
+    @Operation(tags = {"laptop based functionality"},
+               operationId = "get laptops by id",
+               summary = "gets the laptop by the id passed",
+               description = "takes a path variable and returns and object of laptop based on whether the laptop is present or not",
+               parameters = @Parameter(name = "id", description = "id referencing a laptop", example = "3"))
+    public ResponseEntity<Laptops> getById(@PathVariable int id){
+        return laptopService.getById(id);
     }
 }
