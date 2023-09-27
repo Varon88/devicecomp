@@ -1,7 +1,6 @@
 package com.example.devicecomp.Controller;
 
 import com.example.devicecomp.Model.Phones;
-import com.example.devicecomp.Service.impl.LaptopService;
 import com.example.devicecomp.Service.impl.PhoneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,7 +35,7 @@ public class PhoneController {
             description = "takes a body as input and edits the object phone present in the database",
             parameters = @Parameter(name = "id", description = "id referencing a phone", example = "2"),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "edited phone contents to be added", content = @Content(schema = @Schema(implementation = Phones.class))))
-    public ResponseEntity<String> editPhones(@PathVariable int id, @RequestBody Phones phone){
+    public ResponseEntity<Phones> editPhones(@PathVariable int id, @RequestBody Phones phone){
         return phoneService.editLaptop(id,phone);
     }
 
@@ -71,5 +70,15 @@ public class PhoneController {
                     @Parameter(name = "storage", description = "preferred storage", example = "64,128,256")})
     public ResponseEntity<List<Phones>> recommendPhones(@RequestParam String condition, @RequestParam int price, @RequestParam String storage){
         return phoneService.recommendPhones(condition,price,storage);
+    }
+
+    @GetMapping("getById/{id}")
+    @Operation(tags = {"phone based functionality"},
+            operationId = "get phones by id",
+            summary = "gets the phone by the id passed",
+            description = "takes a path variable and returns and object of phone based on whether the phone is present or not",
+            parameters = @Parameter(name = "id", description = "id referencing a laptop", example = "3"))
+    public ResponseEntity<Phones> getById(@PathVariable int id){
+        return phoneService.getById(id);
     }
 }

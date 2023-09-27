@@ -1,9 +1,11 @@
 package com.example.devicecomp.Service.impl;
 
+import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.Phones;
 import com.example.devicecomp.Service.PhoneServiceInterface;
 import com.example.devicecomp.dao.PhonesDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PhoneService implements PhoneServiceInterface {
@@ -19,6 +22,7 @@ public class PhoneService implements PhoneServiceInterface {
     private PhonesDao phonesDao;
 
     @Override
+    @CacheEvict(value="getAllPhone", allEntries = true)
     public ResponseEntity<String> addPhones(Phones phone) {
         try{
             phonesDao.save(phone);
@@ -30,16 +34,28 @@ public class PhoneService implements PhoneServiceInterface {
     }
 
     @Override
-    public ResponseEntity<String> editLaptop(int id, Phones phone) {
+    @CacheEvict(value="getAllPhone", allEntries = true)
+    public ResponseEntity<Phones> editLaptop(int id, Phones phone) {
         if(phonesDao.existsById(id)){
-            phonesDao.deleteById(id);
-            phonesDao.save(new Phones(id , phone.getName(),phone.getStorage(),phone.getManufacturer(),phone.getModel(),phone.getBatteryCapacity(),phone.getPrice(),phone.getUseCondition(),phone.getReleaseDate()));
-            return new ResponseEntity<>("Edit successful", HttpStatus.OK);
+            Optional<Phones> optionalPhone = phonesDao.findById(id);
+            if(optionalPhone.isPresent()){
+                Phones previousPhone = optionalPhone.get();
+                previousPhone.setName(phone.getName());
+                previousPhone.setStorage(phone.getStorage());
+                previousPhone.setManufacturer(phone.getManufacturer());
+                previousPhone.setModel(phone.getModel());
+                previousPhone.setBatteryCapacity(phone.getBatteryCapacity());
+                previousPhone.setPrice(phone.getPrice());
+                previousPhone.setUseCondition(phone.getUseCondition());
+                previousPhone.setReleaseDate(phone.getReleaseDate());
+                return new ResponseEntity<>(phonesDao.save(previousPhone), HttpStatus.OK);
+            }
         }
-        return new ResponseEntity<>("Edit unsuccessful; item not present", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Phones(), HttpStatus.OK);
     }
 
     @Override
+    @CacheEvict(value="getAllPhone", allEntries = true)
     public ResponseEntity<String> deletePhones(int id) {
         try {
             phonesDao.deleteById(id);
@@ -70,6 +86,14 @@ public class PhoneService implements PhoneServiceInterface {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<Phones> getById(int id) {
+        if(phonesDao.existsById(id)){
+            return new ResponseEntity<>(phonesDao.findById(id).get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new Phones(), HttpStatus.BAD_REQUEST);
     }
 }
 

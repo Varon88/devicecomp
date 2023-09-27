@@ -57,6 +57,7 @@ public class LaptopService implements LaptopServiceInterface {
     }
 
     @Override
+    @CacheEvict(value = "getAllLaptop", allEntries = true)
     public ResponseEntity<String> deleteLaptop(int id) {
        try{
            laptopsDao.deleteById(id);
@@ -88,7 +89,7 @@ public class LaptopService implements LaptopServiceInterface {
         if(laptopsDao.findById(id).isPresent()){
             return new ResponseEntity<>(laptopsDao.findById(id).get(),HttpStatus.OK);
         }
-        return new ResponseEntity<>(new Laptops(),HttpStatus.OK);
+        return new ResponseEntity<>(new Laptops(),HttpStatus.BAD_REQUEST);
     }
 }
 

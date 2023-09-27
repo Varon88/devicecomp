@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PortableService implements PortableSpeakerInterface {
@@ -31,13 +32,21 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
-    public ResponseEntity<String> editSpeakers(int id, PortableSpeakers portableSpeakers) {
+    public ResponseEntity<PortableSpeakers> editSpeakers(int id, PortableSpeakers portableSpeakers) {
         if(portableSpeakerDao.existsById(id)){
-            portableSpeakerDao.deleteById(id);
-            portableSpeakerDao.save(new PortableSpeakers(id, portableSpeakers.getName(), portableSpeakers.getManufacturer(),portableSpeakers.getModel(),portableSpeakers.getBatteryCapacity(),portableSpeakers.getUseCondition(),portableSpeakers.getReleaseDate()));
-            return new ResponseEntity<>("Edit successful", HttpStatus.OK);
+            Optional<PortableSpeakers> optionalPortableSpeakers = portableSpeakerDao.findById(id);
+            if(optionalPortableSpeakers.isPresent()){
+                PortableSpeakers previousSpeaker = optionalPortableSpeakers.get();
+                previousSpeaker.setName(portableSpeakers.getName());
+                previousSpeaker.setManufacturer(portableSpeakers.getManufacturer());
+                previousSpeaker.setModel(portableSpeakers.getModel());
+                previousSpeaker.setBatteryCapacity(portableSpeakers.getBatteryCapacity());
+                previousSpeaker.setUseCondition(portableSpeakers.getUseCondition());
+                previousSpeaker.setReleaseDate(portableSpeakers.getReleaseDate());
+                return new ResponseEntity<>(portableSpeakerDao.save(previousSpeaker), HttpStatus.OK);
+            }
         }
-        return new ResponseEntity<>("Edit unsuccessful; item not present", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new PortableSpeakers(), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -68,5 +77,13 @@ public class PortableService implements PortableSpeakerInterface {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<PortableSpeakers> getById(int id) {
+        if(portableSpeakerDao.existsById(id)){
+            return new ResponseEntity<>(portableSpeakerDao.findById(id).get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new PortableSpeakers(), HttpStatus.BAD_REQUEST);
     }
 }

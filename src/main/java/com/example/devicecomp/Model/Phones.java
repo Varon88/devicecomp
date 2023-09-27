@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Phones {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private int storage;

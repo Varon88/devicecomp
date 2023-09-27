@@ -1,5 +1,6 @@
 package com.example.devicecomp.Service;
 
+import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.Phones;
 import org.springframework.http.ResponseEntity;
 
@@ -8,11 +9,13 @@ import java.util.List;
 public interface PhoneServiceInterface {
     ResponseEntity<String> addPhones(Phones phone);
 
-    ResponseEntity<String> editLaptop(int id, Phones phone);
+    ResponseEntity<Phones> editLaptop(int id, Phones phone);
 
     ResponseEntity<String> deletePhones(int id);
 
     ResponseEntity<List<Phones>> getAllPhones();
 
     ResponseEntity<List<Phones>> recommendPhones(String condition, int price, String storage);
+
+    ResponseEntity<Phones> getById(int id);
 }

@@ -1,6 +1,7 @@
 package com.example.devicecomp.Controller;
 
 
+import com.example.devicecomp.Model.Laptops;
 import com.example.devicecomp.Model.PortableSpeakers;
 import com.example.devicecomp.Service.impl.PortableService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +38,7 @@ public class PortableSpeakerController {
             description = "takes a body as input and edits the object Speaker present in the database",
             parameters = @Parameter(name = "id", description = "id referencing a Speaker", example = "2"),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "edited Speaker contents to be added", content = @Content(schema = @Schema(implementation = PortableSpeakers.class))))
-    public ResponseEntity<String> editSpeaker(@PathVariable int id, @RequestBody PortableSpeakers portableSpeakers){
+    public ResponseEntity<PortableSpeakers> editSpeaker(@PathVariable int id, @RequestBody PortableSpeakers portableSpeakers){
         return portableService.editSpeakers(id,portableSpeakers);
     }
 
@@ -73,4 +74,14 @@ public class PortableSpeakerController {
         return portableService.recommendSpeakers(condition,batteryCapacity);
     }
 
+    @GetMapping("getById/{id}")
+    @Operation(tags = {"Portable speaker based functionality"},
+            operationId = "get speakers by id",
+            summary = "gets the speaker by the id passed",
+            description = "takes a path variable and returns and object of speaker based on whether the speaker is present or not",
+            parameters = @Parameter(name = "id", description = "id referencing a speaker", example = "3"))
+    public ResponseEntity<PortableSpeakers> getById(@PathVariable int id){
+        return portableService.getById(id);
+    }
 }
+
