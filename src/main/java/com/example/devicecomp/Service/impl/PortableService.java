@@ -4,6 +4,7 @@ import com.example.devicecomp.Model.PortableSpeakers;
 import com.example.devicecomp.Service.PortableSpeakerInterface;
 import com.example.devicecomp.dao.PortableSpeakerDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class PortableService implements PortableSpeakerInterface {
 
 
     @Override
+    @CacheEvict(value = "getAllSpeaker", allEntries = true)
     public ResponseEntity<String> addSpeakers(PortableSpeakers portableSpeakers) {
         try{
             portableSpeakerDao.save(portableSpeakers);
@@ -32,6 +34,7 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
+    @CacheEvict(value = "getAllSpeaker", allEntries = true)
     public ResponseEntity<PortableSpeakers> editSpeakers(int id, PortableSpeakers portableSpeakers) {
         if(portableSpeakerDao.existsById(id)){
             Optional<PortableSpeakers> optionalPortableSpeakers = portableSpeakerDao.findById(id);
@@ -50,6 +53,8 @@ public class PortableService implements PortableSpeakerInterface {
     }
 
     @Override
+    @CacheEvict(value = "getAllSpeaker", allEntries = true)
+
     public ResponseEntity<String> deleteSpeakers(int id) {
         if(portableSpeakerDao.existsById(id)){
             portableSpeakerDao.deleteById(id);
